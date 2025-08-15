@@ -3,4 +3,4 @@
 Steps to run:
 * npm install
 * npm start
-The game will be hosted on localhost:3000
+* The game will be hosted on localhost:3000
