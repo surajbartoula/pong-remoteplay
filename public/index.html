@@ -91,6 +91,7 @@
       infoEl.textContent = 'Connection error. Refresh to try again.';
     };
     
+	//AS WE MOVE MOUSE WE SEND DATA TO THE SERVER THROUGH ws.send AND SERVER SENDS gameState.paddles.leftorright.y DATA FROM ws.onmessage THEN ON render() LOOP IT IS UPDATED EVERY FRAME
     // Mouse control
     canvas.addEventListener('mousemove', e => {
       if (ws.readyState !== WebSocket.OPEN || !mySide) return;
@@ -110,18 +111,19 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
       // Draw center line
-      ctx.setLineDash([5, 15]);
+      ctx.setLineDash([5, 15]); //create dash on the line
       ctx.strokeStyle = '#444';
       ctx.beginPath();
-      ctx.moveTo(canvas.width / 2, 0);
-      ctx.lineTo(canvas.width / 2, canvas.height);
+      ctx.moveTo(canvas.width / 2, 0); //move to this position but dont draw anything
+      ctx.lineTo(canvas.width / 2, canvas.height); //draw from where the moveTo landed till the postion given in lineto
       ctx.stroke();
       ctx.setLineDash([]);
       
       // Draw ball
       ctx.fillStyle = 'white';
-      ctx.beginPath();
+      ctx.beginPath(); //start fresh
       ctx.arc(gameState.ball.x, gameState.ball.y, 8, 0, Math.PI * 2);
+	  //ctx.arc(x, y, radius, startAngle, endAngle, counterClockwise?);
       ctx.fill();
       
       // Draw paddles with different colors
@@ -132,7 +134,7 @@
         ctx.fillStyle = '#ff6666'; // Red for opponent's paddle
       }
       ctx.fillRect(20, gameState.paddles.left.y, 10, 80);
-      
+      //ctx.fillRect(x, y, width, height);
       // Right paddle
       if (mySide === 'right') {
         ctx.fillStyle = '#00ff00'; // Green for your paddle
